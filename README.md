@@ -1,5 +1,8 @@
 # URL Shortener
 
+## Business Process Model and Notation diagram
+[diagram.bpmn](../Downloads/diagram.bpmn)
+
 ## Arquitetura
 [to do: adicionar Diagrama C4 ou hexagonal]
 
