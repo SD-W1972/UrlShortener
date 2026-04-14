@@ -4,8 +4,7 @@
 ![Diagram](./diagram.svg)
 
 ## Arquitetura
-[to do: adicionar Diagrama C4 ou hexagonal]
-
+! [HexagonalArchitecture](./HexagonalArchitecture.png)
 ## Tecnologias
 - Java 21
 - Spring Boot 3.5.13
