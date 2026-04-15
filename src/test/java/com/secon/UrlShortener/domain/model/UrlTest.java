@@ -1,6 +1,7 @@
 package com.secon.UrlShortener.domain.model;
 
 
+import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
