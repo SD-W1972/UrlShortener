@@ -17,11 +17,12 @@ public class ClickTest {
     ClientInfo clientInfo;
     GeoLocationData geoLocationData;
     UUID id;
+
     @BeforeEach
     public void setup(){
         clientInfo = new ClientInfo("Firefox", "149.0.2", "Arch Linux x86_64", "6.19.10-arch1-1", "20DSS27P00 (ThinkPad L450)");
         geoLocationData = new GeoLocationData("Brazil", "Osasco/SP", "00000123", "44.9733", "-93.2323");
-        id = new UUID().randomUUID();
+        id = UUID.randomUUID();
     }
 
     @Test
@@ -47,8 +48,7 @@ public class ClickTest {
         assertEquals("181.250.130.87", click.getIpAdress());
         assertEquals(geoLocationData, click.getGeoLocationData());
         assertEquals(clientInfo, click.getClientInfo());
-        assertThat(click.getClickedAt()).isAfter(before);
-        assertThat(click.getClickedAt()).isBefore(after);
+        assertThat(click.getClickedAt()).isBetween(before, after);
     }
 
     @Test

@@ -73,19 +73,19 @@ public class Url {
     }
 
     public void validate(String originalUrl, String slug) throws URISyntaxException {
-        URI uri = new URI(originalUrl);
-
-        if(originalUrl == null){
+        if (originalUrl == null) {
             throw new IllegalArgumentException("URL is null");
         }
 
-        if(uri.getScheme() != null &&
-                (uri.getScheme().equalsIgnoreCase("http") ||
-                        uri.getScheme().equalsIgnoreCase("https"))){
-            throw new IllegalArgumentException("URL invalid");
+        URI uri = new URI(originalUrl);
+        String scheme = uri.getScheme();
+
+        if (scheme == null ||
+                (!scheme.equalsIgnoreCase("http") && !scheme.equalsIgnoreCase("https"))) {
+            throw new IllegalArgumentException("URL invalid: must use http or https");
         }
 
-        if(slug == null){
+        if (slug == null) {
             throw new IllegalArgumentException("Slug is null");
         }
     }

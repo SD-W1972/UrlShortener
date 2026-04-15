@@ -2,7 +2,6 @@ package com.secon.UrlShortener.domain.model;
 
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
-import org.springframework.cglib.core.Local;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,12 +19,8 @@ public class Click {
     private String ipAdress;
 
     public Click(UUID id, String originalUrl, String slug, LocalDateTime clickedAt, ClientInfo clientInfo, GeoLocationData geoLocationData, String ipAdress) {
+        validate(originalUrl, slug, clickedAt);
         this.id = id;
-        try {
-            validate(originalUrl, slug, clickedAt);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
         this.originalUrl = originalUrl;
         this.slug = slug;
         this.clickedAt = clickedAt;
@@ -86,25 +81,28 @@ public class Click {
         this.ipAdress = ipAdress;
     }
 
-    public void validate(String originalUrl, String slug, LocalDateTime clickedAt) throws URISyntaxException {
-        URI uri = new URI(originalUrl);
-
-        if(originalUrl == null || originalUrl.isBlank() || originalUrl.isEmpty()){
+    private void validate(String originalUrl, String slug, LocalDateTime clickedAt) {
+        if (originalUrl == null || originalUrl.isBlank()) {
             throw new IllegalArgumentException("URL cannot be null or empty");
         }
 
-        if(uri.getScheme() != null &&
-                (uri.getScheme().equalsIgnoreCase("http") ||
-                        uri.getScheme().equalsIgnoreCase("https"))){
-            throw new IllegalArgumentException("URL invalid");
+        try {
+            URI uri = new URI(originalUrl);
+            String scheme = uri.getScheme();
+
+            if (scheme == null || (!scheme.equalsIgnoreCase("http") && !scheme.equalsIgnoreCase("https"))) {
+                throw new IllegalArgumentException("URL invalid: must use http or https");
+            }
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("Invalid URL format: " + originalUrl, e);
         }
 
-        if(slug == null || slug.isBlank() || slug.isEmpty()){
+        if (slug == null || slug.isBlank()) {
             throw new IllegalArgumentException("Slug cannot be null or empty");
         }
 
-        if(clickedAt == null){
-            throw new IllegalArgumentException("Data of the click cannot be null or empty");
+        if (clickedAt == null) {
+            throw new IllegalArgumentException("Data of the click cannot be null");
         }
     }
 

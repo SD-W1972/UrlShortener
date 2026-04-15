@@ -1,8 +1,5 @@
 package com.secon.UrlShortener.domain.model;
 
-
-import com.secon.UrlShortener.domain.model.ov.ClientInfo;
-import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,22 +10,21 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UrlTest {
-    UUID id;
-    ClientInfo clientInfo;
-    GeoLocationData geoLocationData;
 
+    UUID id;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         id = UUID.randomUUID();
     }
 
     @Test
-    public void shouldCreateValidUrl(){
+    public void shouldCreateValidUrl() {
         LocalDateTime before = LocalDateTime.now();
+
         Url url = new Url(
                 id,
-                "https://example.com",
+                "https://google.com",
                 "abc123",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusDays(30),
@@ -37,32 +33,28 @@ public class UrlTest {
 
         LocalDateTime after = LocalDateTime.now();
 
-        Click click = new Click(id, "https://example.com", "abc123", LocalDateTime.now(), clientInfo, geoLocationData, "181.250.130.87");
-
         Assertions.assertNotNull(url);
-        Assertions.assertEquals("https://example;com", url.getOriginalUrl());
+        Assertions.assertEquals("https://google.com", url.getOriginalUrl());
         Assertions.assertEquals("abc123", url.getSlug());
-        assertThat(url.getCreatedAt()).isAfter(before);
-        assertThat(url.getCreatedAt()).isBefore(after);
-
+        assertThat(url.getCreatedAt()).isBetween(before, after);
     }
 
     @Test
-    public void shouldThrowAnExceptionWhenOriginalUrlIsNull(){
+    public void shouldThrowAnExceptionWhenOriginalUrlIsNull() {
         String originalUrl = null;
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Url(id, originalUrl, "abc123", LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
 
     @Test
-    public void shouldThrowAnExceptionWhenOriginalUrlIsInvalid(){
+    public void shouldThrowAnExceptionWhenOriginalUrlIsInvalid() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Url(id, "not-an-url", "abc123",
                 LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
 
     @Test
-    public void shouldThrowAnExceptionWhenSlugIsNull(){
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url(id, "https://example.com", null,
+    public void shouldThrowAnExceptionWhenSlugIsNull() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url(id, "https://google.com", null,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
 
