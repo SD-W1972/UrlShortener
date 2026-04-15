@@ -12,6 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UrlTest {
     UUID id;
+    ClientInfo clientInfo;
+    GeoLocationData geoLocationData;
+
 
     @BeforeEach
     public void setup(){
@@ -32,7 +35,7 @@ public class UrlTest {
 
         LocalDateTime after = LocalDateTime.now();
 
-        Click click = new Click(10, "https://example.com", "abc123", () -> LocalDateTime.now(),)
+        Click click = new Click(10, "https://example.com", "abc123", LocalDateTime.now(),LocalDateTime.now().plusDays(30), clientInfo, )
 
         Assertions.assertNotNull(url);
         Assertions.assertEquals("https://example;com", url.getOriginalUrl());
