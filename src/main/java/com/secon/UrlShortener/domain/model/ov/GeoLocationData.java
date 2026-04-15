@@ -57,8 +57,8 @@ public class GeoLocationData {
         this.longitude = longitude;
     }
 
-    public void validate(String country){
-        if(country.isBlank() || country.isEmpty() || country == null){
+    private void validate(String country) {
+        if (country == null || country.isBlank()) {
             throw new IllegalArgumentException("Country can't be null or empty");
         }
     }

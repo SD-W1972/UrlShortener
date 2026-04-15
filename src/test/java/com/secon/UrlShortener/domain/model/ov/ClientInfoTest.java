@@ -11,7 +11,7 @@ public class ClientInfoTest {
         ClientInfo clientInfo = new ClientInfo(
                 "Chrome",
                 "149.0.2",
-                "Ubuntu x86_54",
+                "Ubuntu x86_64",
                 "24.0.2",
                 "20DSS27P00 (ThinkPad L450)"
         );

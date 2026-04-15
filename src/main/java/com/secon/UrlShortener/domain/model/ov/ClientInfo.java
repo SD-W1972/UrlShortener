@@ -57,7 +57,7 @@ public class ClientInfo {
     }
 
     public void validate(String OS){
-        if(OS.isEmpty() || OS.isBlank() || OS == null)
+        if(OS == null|| OS.isBlank())
             throw new IllegalArgumentException("OS can't be null or empty");
     }
 
