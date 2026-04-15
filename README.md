@@ -4,7 +4,7 @@
 ![Diagram](./diagram.svg)
 
 ## Arquitetura
-! [HexagonalArchitecture](./HexagonalArchitecture.png)
+! [HexagonalArchitecture](./HexagonalArchitecture)
 
 ## Tecnologias
 - Java 21
