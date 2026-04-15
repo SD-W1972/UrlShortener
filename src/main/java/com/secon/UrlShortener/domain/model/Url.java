@@ -89,4 +89,16 @@ public class Url {
             throw new IllegalArgumentException("Slug is null");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Url{" +
+                "id=" + id +
+                ", OriginalUrl='" + OriginalUrl + '\'' +
+                ", Slug='" + Slug + '\'' +
+                ", createdAt=" + createdAt +
+                ", expiresAt=" + expiresAt +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

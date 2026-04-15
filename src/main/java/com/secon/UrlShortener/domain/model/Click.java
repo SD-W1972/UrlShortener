@@ -1,5 +1,7 @@
 package com.secon.UrlShortener.domain.model;
 
+import com.secon.UrlShortener.domain.model.ov.ClientInfo;
+import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import org.springframework.cglib.core.Local;
 
 import java.net.URI;
@@ -104,5 +106,18 @@ public class Click {
         if(clickedAt == null){
             throw new IllegalArgumentException("Data of the click cannot be null or empty");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Click{" +
+                "id=" + id +
+                ", originalUrl='" + originalUrl + '\'' +
+                ", slug='" + slug + '\'' +
+                ", clickedAt=" + clickedAt +
+                ", clientInfo=" + clientInfo +
+                ", geoLocationData=" + geoLocationData +
+                ", ipAdress='" + ipAdress + '\'' +
+                '}';
     }
 }

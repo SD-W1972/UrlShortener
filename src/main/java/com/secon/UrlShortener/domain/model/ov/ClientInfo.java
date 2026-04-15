@@ -60,4 +60,15 @@ public class ClientInfo {
         if(OS.isEmpty() || OS.isBlank() || OS == null)
             throw new IllegalArgumentException("OS can't be null or empty");
     }
+
+    @Override
+    public String toString() {
+        return "ClientInfo{" +
+                "browser='" + browser + '\'' +
+                ", browserVersion='" + browserVersion + '\'' +
+                ", OS='" + OS + '\'' +
+                ", OSVersion='" + OSVersion + '\'' +
+                ", device='" + device + '\'' +
+                '}';
+    }
 }

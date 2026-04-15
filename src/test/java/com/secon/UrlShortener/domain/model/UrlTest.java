@@ -2,6 +2,7 @@ package com.secon.UrlShortener.domain.model;
 
 
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
+import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class UrlTest {
 
         LocalDateTime after = LocalDateTime.now();
 
-        Click click = new Click(10, "https://example.com", "abc123", LocalDateTime.now(),LocalDateTime.now().plusDays(30), clientInfo, )
+        Click click = new Click(id, "https://example.com", "abc123", LocalDateTime.now(), clientInfo, geoLocationData, "181.250.130.87");
 
         Assertions.assertNotNull(url);
         Assertions.assertEquals("https://example;com", url.getOriginalUrl());

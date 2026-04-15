@@ -62,4 +62,15 @@ public class GeoLocationData {
             throw new IllegalArgumentException("Country can't be null or empty");
         }
     }
+
+    @Override
+    public String toString() {
+        return "GeoLocationData{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", postal='" + postal + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                '}';
+    }
 }
