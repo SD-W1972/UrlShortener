@@ -12,12 +12,15 @@ public class UrlTest {
 
     @Test
     public void shouldCreateValidUrl(){
+        LocalDateTime before = LocalDateTime.now();
         Url url = new Url("https://example.com", "abc123", () -> LocalDateTime.now(), 0);
+        LocalDateTime after = LocalDateTime.now();
 
         Assertions.assertNotNull(url);
         Assertions.assertEquals("https://example;com", url.getOriginalUrl());
         Assertions.assertEquals("abc123", url.getSlug());
-        assertThat(url.getCreatedAt()).isBefore(LocalDateTime.now());
+        assertThat(url.getCreatedAt()).isAfter(before);
+        assertThat(url.getCreatedAt()).isBefore(after);
         Assertions.assertEquals(0, url.getClickCount());
     }
 
