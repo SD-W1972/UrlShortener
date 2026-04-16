@@ -1,7 +1,7 @@
 package com.secon.UrlShortener.outbound.entities;
 
-import com.secon.UrlShortener.domain.model.ov.ClientInfo;
-import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
+import com.secon.UrlShortener.outbound.ov.JpaClientInfoAdapter;
+import com.secon.UrlShortener.outbound.ov.JpaGeoLocationDataAdapter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
