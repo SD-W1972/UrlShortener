@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Url {
     private final UUID id;
     private String OriginalUrl;
-    private String Slug;
+    private String slug;
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
     private boolean isActive;
@@ -22,7 +22,7 @@ public class Url {
             throw new RuntimeException(e);
         }
         OriginalUrl = originalUrl;
-        Slug = slug;
+        this.slug = slug;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
         this.isActive = isActive;
@@ -41,11 +41,11 @@ public class Url {
     }
 
     public String getSlug() {
-        return Slug;
+        return slug;
     }
 
     public void setSlug(String slug) {
-        Slug = slug;
+        this.slug = slug;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -95,7 +95,7 @@ public class Url {
         return "Url{" +
                 "id=" + id +
                 ", OriginalUrl='" + OriginalUrl + '\'' +
-                ", Slug='" + Slug + '\'' +
+                ", Slug='" + slug + '\'' +
                 ", createdAt=" + createdAt +
                 ", expiresAt=" + expiresAt +
                 ", isActive=" + isActive +
