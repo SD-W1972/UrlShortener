@@ -1,5 +1,6 @@
 package com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities;
 
+import com.secon.UrlShortener.domain.model.Url;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -29,4 +30,13 @@ public class JpaUrlEntity {
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
     private boolean isActive;
+
+    public JpaUrlEntity(Url url){
+        this.originalUrl = url.getOriginalUrl();
+        this.slug = url.getSlug();
+        this.createdAt = url.getCreatedAt();
+        this.expiresAt = url.getExpiresAt();
+        this.isActive = url.isActive();
+    }
+
 }

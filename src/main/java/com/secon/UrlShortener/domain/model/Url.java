@@ -1,5 +1,7 @@
 package com.secon.UrlShortener.domain.model;
 
+import com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities.JpaUrlEntity;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.UUID;
@@ -8,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class Url {
     private final UUID id;
-    private String OriginalUrl;
+    private String originalUrl;
     private String slug;
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
@@ -21,7 +23,7 @@ public class Url {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        OriginalUrl = originalUrl;
+        this.originalUrl = originalUrl;
         this.slug = slug;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
@@ -33,11 +35,11 @@ public class Url {
     }
 
     public String getOriginalUrl() {
-        return OriginalUrl;
+        return originalUrl;
     }
 
     public void setOriginalUrl(String originalUrl) {
-        OriginalUrl = originalUrl;
+        this.originalUrl = originalUrl;
     }
 
     public String getSlug() {
@@ -94,11 +96,12 @@ public class Url {
     public String toString() {
         return "Url{" +
                 "id=" + id +
-                ", OriginalUrl='" + OriginalUrl + '\'' +
+                ", OriginalUrl='" + originalUrl + '\'' +
                 ", Slug='" + slug + '\'' +
                 ", createdAt=" + createdAt +
                 ", expiresAt=" + expiresAt +
                 ", isActive=" + isActive +
                 '}';
     }
+
 }
