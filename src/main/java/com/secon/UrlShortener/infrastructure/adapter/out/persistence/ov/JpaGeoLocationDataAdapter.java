@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.outbound.ov;
+package com.secon.UrlShortener.infrastructure.adapter.out.persistence.ov;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

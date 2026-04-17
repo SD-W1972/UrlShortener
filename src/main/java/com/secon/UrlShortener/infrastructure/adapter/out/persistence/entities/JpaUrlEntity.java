@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.outbound.entities;
+package com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
