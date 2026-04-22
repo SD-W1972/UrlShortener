@@ -30,6 +30,12 @@ public class Url {
         this.isActive = isActive;
     }
 
+    public Url(String originalUrl){
+        this.originalUrl = originalUrl;
+        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now().plusDays(30);
+    }
+
     public UUID getId() {
         return id;
     }
