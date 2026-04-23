@@ -24,16 +24,9 @@ public class UrlRepositoryImpl implements UrlRepository {
     }
 
     @Override
-    public Url findByOriginalUrl(String url) {
-        Optional<JpaUrlEntity> urlEntity = this.jpaUrlRepository.findByOriginalUrlHash(url);
-        return urlEntity.map(entity -> new Url(
-                entity.getId(),
-                entity.getOriginalUrl(),
-                entity.getSlug(),
-                entity.getCreatedAt(),
-                entity.getExpiresAt(),
-                entity.isActive())
-        ).orElse(null);
+    public Optional<Url> findByOriginalUrl(String url) {
+        return jpaUrlRepository.findByOriginalUrlHash(url)
+                .map(this::toDomain);
     }
 
     @Override
@@ -43,9 +36,9 @@ public class UrlRepositoryImpl implements UrlRepository {
     }
 
     @Override
-    public Url findById(UUID id) {
+    public Optional<Url> findById(UUID id) {
         Optional<JpaUrlEntity> jpaUrlEntity = jpaUrlRepository.findById(id);
-        return (jpaUrlEntity.isPresent()) ? toDomain(jpaUrlEntity.get()) : null;
+        return jpaUrlEntity.map(this::toDomain);
     }
 
     @Override
