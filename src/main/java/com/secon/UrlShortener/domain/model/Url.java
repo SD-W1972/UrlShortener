@@ -9,15 +9,15 @@ import java.util.UUID;
 import java.time.LocalDateTime;
 
 public class Url {
-    private final UUID id;
+    private UUID id;
     private String originalUrl;
     private String slug;
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
     private boolean isActive;
 
-    public Url(UUID id, String originalUrl, String slug, LocalDateTime createdAt, LocalDateTime expiresAt, boolean isActive){
-        this.id = id;
+    public Url(String originalUrl, String slug, LocalDateTime createdAt, LocalDateTime expiresAt, boolean isActive){
+        this.id = null;
         try {
             validate(originalUrl, slug);
         } catch (URISyntaxException e) {
@@ -34,6 +34,9 @@ public class Url {
         this.originalUrl = originalUrl;
         this.createdAt = LocalDateTime.now();
         this.createdAt = LocalDateTime.now().plusDays(30);
+        this.id = null;
+        this.slug = null;
+        this.isActive = true;
     }
 
     public UUID getId() {
@@ -79,6 +82,8 @@ public class Url {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    public void setId(UUID id){ this.id = id;}
 
     public void validate(String originalUrl, String slug) throws URISyntaxException {
         if (originalUrl == null) {

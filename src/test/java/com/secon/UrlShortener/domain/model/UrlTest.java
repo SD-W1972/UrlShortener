@@ -23,7 +23,6 @@ public class UrlTest {
         LocalDateTime before = LocalDateTime.now();
 
         Url url = new Url(
-                id,
                 "https://google.com",
                 "abc123",
                 LocalDateTime.now(),
@@ -43,18 +42,18 @@ public class UrlTest {
     public void shouldThrowAnExceptionWhenOriginalUrlIsNull() {
         String originalUrl = null;
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new Url(id, originalUrl, "abc123", LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
+                () -> new Url(originalUrl, "abc123", LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
 
     @Test
     public void shouldThrowAnExceptionWhenOriginalUrlIsInvalid() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url(id, "not-an-url", "abc123",
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url( "not-an-url", "abc123",
                 LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
 
     @Test
     public void shouldThrowAnExceptionWhenSlugIsNull() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url(id, "https://google.com", null,
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url("https://google.com", null,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
 
