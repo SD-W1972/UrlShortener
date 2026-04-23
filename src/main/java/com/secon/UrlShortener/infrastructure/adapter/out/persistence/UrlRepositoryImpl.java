@@ -48,7 +48,7 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     public Url toDomain(JpaUrlEntity entity){
         return new Url(
-                entity.getId(),
+
                 entity.getOriginalUrl(),
                 entity.getSlug(),
                 entity.getCreatedAt(),
