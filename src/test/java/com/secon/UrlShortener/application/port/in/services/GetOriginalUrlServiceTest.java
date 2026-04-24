@@ -37,9 +37,9 @@ public class GetOriginalUrlServiceTest {
     public void shouldReturnCorrectUrlFromSlug(){
         when(urlRepository.findBySlug("dnh")).thenReturn(Optional.of(url));
 
-        Url urlFromService = getOriginalUrlService.originalUrl("dnh");
+        String urlFromService = getOriginalUrlService.originalUrl("dnh");
         Assertions.assertNotNull(urlFromService);
-        Assertions.assertEquals(url, urlFromService);
+        Assertions.assertEquals(url.getOriginalUrl(), urlFromService);
     }
 
     @Test
