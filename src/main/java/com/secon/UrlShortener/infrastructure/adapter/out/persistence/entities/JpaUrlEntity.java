@@ -1,10 +1,7 @@
 package com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities;
 
 import com.secon.UrlShortener.domain.model.Url;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +19,8 @@ import java.util.UUID;
 public class JpaUrlEntity {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String originalUrl;
     private String slug;
