@@ -12,4 +12,5 @@ public interface UrlRepository {
     List<Url> findAll();
     Optional<Url> findById(UUID id);
     void deleteById(UUID id);
+    Optional<Url> findBySlug(String slug);
 }
