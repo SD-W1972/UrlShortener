@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.application.usecases;
+package com.secon.UrlShortener.application.port.in.services;
 
 import com.secon.UrlShortener.application.port.in.service.GetOriginalUrlService;
 import com.secon.UrlShortener.application.port.out.UrlRepository;
