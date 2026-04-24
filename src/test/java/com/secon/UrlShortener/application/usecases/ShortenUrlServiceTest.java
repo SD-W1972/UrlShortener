@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.nio.ByteBuffer;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -36,7 +35,7 @@ public class ShortenUrlServiceTest {
         urlEntity = new Url("https://google.com");
 
         savedUrlEntity = new Url("https://google.com");
-        savedUrlEntity.setId(UUID.randomUUID());
+        savedUrlEntity.setId(1L);
     }
 
     @Test
@@ -48,13 +47,11 @@ public class ShortenUrlServiceTest {
 
         String actualSlug = urlShortenService.encodeToSlug(url);
 
-        ByteBuffer bb = ByteBuffer.allocate(16);
-        bb.putLong(savedUrlEntity.getId().getMostSignificantBits());
-        bb.putLong(savedUrlEntity.getId().getLeastSignificantBits());
-
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putLong(savedUrlEntity.getId());
         Base62 base62 = Base62.createInstance();
 
-        byte[] hardcodedSlug = base62.encode(bb.array());
+        byte[] hardcodedSlug = base62.encode(buffer.array());
 
         Assertions.assertNotNull(actualSlug);
         Assertions.assertEquals(new String(hardcodedSlug), actualSlug);

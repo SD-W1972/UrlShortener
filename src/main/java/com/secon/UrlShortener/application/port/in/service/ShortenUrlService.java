@@ -27,7 +27,7 @@ public class ShortenUrlService implements ShortenUrlUseCase {
             Url savedUrl = repository.save(url);
 
             Base62 base62 = Base62.createInstance();
-            byte[] slugBytes = base62.encode(uuidToBytes(savedUrl.getId()));
+            byte[] slugBytes = base62.encode(longToBytes(savedUrl.getId()));
             String slug = new String(slugBytes);
 
             savedUrl.setSlug(slug);
@@ -39,9 +39,9 @@ public class ShortenUrlService implements ShortenUrlUseCase {
         }
     }
 
-    private byte[] uuidToBytes(UUID uuid) {
-        ByteBuffer bb = ByteBuffer.allocate(16);
-        bb.putLong(uuid.getMostSignificantBits());
-        bb.putLong(uuid.getLeastSignificantBits());
-        return bb.array();
-    }}
+    private byte[] longToBytes(long value) {
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putLong(value);
+        return buffer.array();
+    }
+}
