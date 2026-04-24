@@ -46,6 +46,12 @@ public class UrlRepositoryImpl implements UrlRepository {
         jpaUrlRepository.deleteById(id);
     }
 
+    @Override
+    public Optional<Url> findBySlug(String slug){
+        Optional<JpaUrlEntity> jpaUrlEntity = jpaUrlRepository.findBySlug(slug);
+        return jpaUrlEntity.map(this::toDomain);
+    }
+
     public Url toDomain(JpaUrlEntity entity){
         return new Url(
 
