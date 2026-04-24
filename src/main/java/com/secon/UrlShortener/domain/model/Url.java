@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.time.LocalDateTime;
 
 public class Url {
-    private UUID id;
+    private Long id;
     private String originalUrl;
     private String slug;
     private LocalDateTime createdAt;
@@ -39,7 +39,7 @@ public class Url {
         this.isActive = true;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
@@ -83,7 +83,7 @@ public class Url {
         isActive = active;
     }
 
-    public void setId(UUID id){ this.id = id;}
+    public void setId(Long id){ this.id = id;}
 
     public void validate(String originalUrl, String slug) throws URISyntaxException {
         if (originalUrl == null) {
