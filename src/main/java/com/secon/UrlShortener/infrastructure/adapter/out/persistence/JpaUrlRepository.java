@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface JpaUrlRepository extends JpaRepository<JpaUrlEntity, UUID> {
+public interface JpaUrlRepository extends JpaRepository<JpaUrlEntity, Long> {
     @Override
-    Optional<JpaUrlEntity> findById(UUID uuid);
+    Optional<JpaUrlEntity> findById(Long id);
 
     Optional<JpaUrlEntity> findBySlug(String slug);
 

@@ -10,7 +10,7 @@ public interface UrlRepository {
     Url save(Url url);
     Optional<Url> findByOriginalUrl(String url);
     List<Url> findAll();
-    Optional<Url> findById(UUID id);
-    void deleteById(UUID id);
+    Optional<Url> findById(Long id);
+    void deleteById(Long id);
     Optional<Url> findBySlug(String slug);
 }

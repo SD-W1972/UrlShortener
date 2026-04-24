@@ -36,13 +36,13 @@ public class UrlRepositoryImpl implements UrlRepository {
     }
 
     @Override
-    public Optional<Url> findById(UUID id) {
+    public Optional<Url> findById(Long id) {
         Optional<JpaUrlEntity> jpaUrlEntity = jpaUrlRepository.findById(id);
         return jpaUrlEntity.map(this::toDomain);
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         jpaUrlRepository.deleteById(id);
     }
 
