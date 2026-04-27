@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class Click {
 
-    private final UUID id;
+    private final Long id;
     private String originalUrl;
     private String slug;
     private LocalDateTime clickedAt;
@@ -18,9 +18,9 @@ public class Click {
     private GeoLocationData geoLocationData;
     private String ipAdress;
 
-    public Click(UUID id, String originalUrl, String slug, LocalDateTime clickedAt, ClientInfo clientInfo, GeoLocationData geoLocationData, String ipAdress) {
+    public Click(Long id, String originalUrl, String slug, LocalDateTime clickedAt, ClientInfo clientInfo, GeoLocationData geoLocationData, String ipAdress) {
         validate(originalUrl, slug, clickedAt);
-        this.id = id;
+        this.id = null;
         this.originalUrl = originalUrl;
         this.slug = slug;
         this.clickedAt = clickedAt;
@@ -29,7 +29,7 @@ public class Click {
         this.ipAdress = ipAdress;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

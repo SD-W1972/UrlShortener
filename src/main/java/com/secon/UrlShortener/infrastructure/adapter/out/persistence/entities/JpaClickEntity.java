@@ -1,11 +1,9 @@
 package com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities;
 
+import com.secon.UrlShortener.domain.model.Click;
 import com.secon.UrlShortener.infrastructure.adapter.out.persistence.ov.JpaClientInfoAdapter;
 import com.secon.UrlShortener.infrastructure.adapter.out.persistence.ov.JpaGeoLocationDataAdapter;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +21,8 @@ import java.util.UUID;
 public class JpaClickEntity {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String originalUrl;
     private String slug;
@@ -33,4 +31,7 @@ public class JpaClickEntity {
     private JpaGeoLocationDataAdapter jpaGeoLocationDataAdapter;
     private String ipAdress;
 
+    public JpaClickEntity(Click click){
+        this.id = click.getId();
+    }
 }

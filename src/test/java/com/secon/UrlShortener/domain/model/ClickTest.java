@@ -16,7 +16,7 @@ public class ClickTest {
 
     ClientInfo clientInfo;
     GeoLocationData geoLocationData;
-    UUID id;
+    Long id;
 
     @BeforeEach
     public void setup(){
