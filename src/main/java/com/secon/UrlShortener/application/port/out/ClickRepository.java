@@ -1,0 +1,13 @@
+package com.secon.UrlShortener.application.port.out;
+
+import com.secon.UrlShortener.domain.model.Click;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ClickRepository {
+    Click save(Click click);
+    List<Click> findALl();
+    Optional<Click> findById(Long id);
+    void deleteById(Long id);
+}

@@ -4,7 +4,6 @@ import com.secon.UrlShortener.domain.model.Url;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface UrlRepository {
     Url save(Url url);
