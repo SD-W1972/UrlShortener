@@ -1,12 +1,10 @@
 package com.secon.UrlShortener.infrastructure.adapter.out.persistence;
 
-import com.secon.UrlShortener.application.port.out.ClickRepository;
+import com.secon.UrlShortener.domain.out.ClickRepository;
 import com.secon.UrlShortener.domain.model.Click;
-import com.secon.UrlShortener.domain.model.Url;
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities.JpaClickEntity;
-import com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities.JpaUrlEntity;
 import com.secon.UrlShortener.infrastructure.adapter.out.persistence.ov.JpaClientInfoAdapter;
 import com.secon.UrlShortener.infrastructure.adapter.out.persistence.ov.JpaGeoLocationDataAdapter;
 

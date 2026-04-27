@@ -1,8 +1,8 @@
-package com.secon.UrlShortener.application.port.in.service;
+package com.secon.UrlShortener.application.service;
 
-import com.secon.UrlShortener.application.port.out.UrlRepository;
+import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
-import com.secon.UrlShortener.domain.model.usecase.GetOriginalUrlUseCase;
+import com.secon.UrlShortener.domain.usecase.GetOriginalUrlUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 

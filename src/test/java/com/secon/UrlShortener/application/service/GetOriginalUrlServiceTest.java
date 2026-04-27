@@ -1,7 +1,6 @@
-package com.secon.UrlShortener.application.port.in.services;
+package com.secon.UrlShortener.application.service;
 
-import com.secon.UrlShortener.application.port.in.service.GetOriginalUrlService;
-import com.secon.UrlShortener.application.port.out.UrlRepository;
+import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

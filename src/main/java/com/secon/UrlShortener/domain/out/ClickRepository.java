@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.application.port.out;
+package com.secon.UrlShortener.domain.out;
 
 import com.secon.UrlShortener.domain.model.Click;
 

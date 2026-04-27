@@ -1,16 +1,14 @@
-package com.secon.UrlShortener.application.port.in.service;
+package com.secon.UrlShortener.application.service;
 
-import com.secon.UrlShortener.application.port.out.UrlRepository;
+import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
-import com.secon.UrlShortener.domain.model.usecase.ShortenUrlUseCase;
+import com.secon.UrlShortener.domain.usecase.ShortenUrlUseCase;
 import io.seruco.encoding.base62.Base62;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ShortenUrlService implements ShortenUrlUseCase {

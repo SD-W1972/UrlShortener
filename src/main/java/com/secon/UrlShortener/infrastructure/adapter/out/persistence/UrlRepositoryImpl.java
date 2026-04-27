@@ -1,12 +1,11 @@
 package com.secon.UrlShortener.infrastructure.adapter.out.persistence;
 
-import com.secon.UrlShortener.application.port.out.UrlRepository;
+import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
 import com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities.JpaUrlEntity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class UrlRepositoryImpl implements UrlRepository {

@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.domain.model.usecase;
+package com.secon.UrlShortener.domain.usecase;
 
 import java.util.UUID;
 
