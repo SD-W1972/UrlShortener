@@ -1,22 +1,13 @@
 package com.secon.UrlShortener.domain.model;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UrlTest {
-
-    UUID id;
-
-    @BeforeEach
-    public void setup() {
-        id = UUID.randomUUID();
-    }
 
     @Test
     public void shouldCreateValidUrl() {
@@ -47,7 +38,7 @@ public class UrlTest {
 
     @Test
     public void shouldThrowAnExceptionWhenOriginalUrlIsInvalid() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url( "not-an-url", "abc123",
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Url("not-an-url", "abc123",
                 LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
 
@@ -56,5 +47,4 @@ public class UrlTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Url("https://google.com", null,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(30), true));
     }
-
 }

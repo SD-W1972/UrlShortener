@@ -49,7 +49,6 @@ public class ClickRepositoryImpl implements ClickRepository {
 
     public Click toDomain(JpaClickEntity entity){
         return new Click(
-                entity.getId(),
                 entity.getOriginalUrl(),
                 entity.getSlug(),
                 entity.getClickedAt(),

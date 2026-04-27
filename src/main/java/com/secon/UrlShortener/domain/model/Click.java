@@ -18,7 +18,7 @@ public class Click {
     private GeoLocationData geoLocationData;
     private String ipAdress;
 
-    public Click(Long id, String originalUrl, String slug, LocalDateTime clickedAt, ClientInfo clientInfo, GeoLocationData geoLocationData, String ipAdress) {
+    public Click(String originalUrl, String slug, LocalDateTime clickedAt, ClientInfo clientInfo, GeoLocationData geoLocationData, String ipAdress) {
         validate(originalUrl, slug, clickedAt);
         this.id = null;
         this.originalUrl = originalUrl;
