@@ -1,13 +1,12 @@
-package com.secon.UrlShortener.infrastructure.adapter.out.persistence;
+package com.secon.UrlShortener.infrastructure.out.persistence;
 
-import com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities.JpaUrlEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUrlEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface JpaUrlRepository extends JpaRepository<JpaUrlEntity, Long> {
     @Override

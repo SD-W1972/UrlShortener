@@ -1,10 +1,7 @@
 package com.secon.UrlShortener.domain.model;
 
-import com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities.JpaUrlEntity;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.UUID;
 
 import java.time.LocalDateTime;
 

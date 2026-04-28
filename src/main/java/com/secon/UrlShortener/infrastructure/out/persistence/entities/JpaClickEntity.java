@@ -1,8 +1,8 @@
-package com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities;
+package com.secon.UrlShortener.infrastructure.out.persistence.entities;
 
 import com.secon.UrlShortener.domain.model.Click;
-import com.secon.UrlShortener.infrastructure.adapter.out.persistence.ov.JpaClientInfoAdapter;
-import com.secon.UrlShortener.infrastructure.adapter.out.persistence.ov.JpaGeoLocationDataAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.ov.JpaClientInfoAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.ov.JpaGeoLocationDataAdapter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "Click")

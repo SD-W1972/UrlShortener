@@ -1,6 +1,6 @@
-package com.secon.UrlShortener.infrastructure.adapter.out.persistence;
+package com.secon.UrlShortener.infrastructure.out.persistence;
 
-import com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities.JpaClickEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaClickEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

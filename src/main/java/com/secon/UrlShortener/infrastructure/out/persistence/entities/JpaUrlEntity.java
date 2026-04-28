@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.infrastructure.adapter.out.persistence.entities;
+package com.secon.UrlShortener.infrastructure.out.persistence.entities;
 
 import com.secon.UrlShortener.domain.model.Url;
 import jakarta.persistence.*;
