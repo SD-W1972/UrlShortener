@@ -104,6 +104,14 @@
 			<version>5.0.2</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.1.0</version> <!-- Use 6.0.0 para Spring Boot 3 ou 5.0.0 para Jakarta EE 9 -->
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
