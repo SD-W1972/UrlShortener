@@ -13,13 +13,6 @@ import ua_parser.UserAgent;
 
 public class AnalyticsProviderImpl implements AnalyticsProvider {
 
-    @Value("${geoip2.account.id}")
-    private int accountId;
-
-    @Value("${geoip2.license.key}")
-    private String licenseKey;
-
-    private WebServiceClient client;
     private  Parser parser;
 
     public AnalyticsProviderImpl() {
@@ -27,7 +20,6 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
 
     @PostConstruct
     public void init(){
-        this.client = new WebServiceClient.Builder(accountId, licenseKey).build();
         this.parser = new Parser();
     }
     @Override
