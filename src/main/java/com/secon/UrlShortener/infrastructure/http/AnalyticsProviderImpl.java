@@ -1,5 +1,6 @@
 package com.secon.UrlShortener.infrastructure.http;
 
+import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.WebServiceClient;
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
@@ -11,17 +12,33 @@ import ua_parser.OS;
 import ua_parser.Parser;
 import ua_parser.UserAgent;
 
+import java.io.File;
+import java.io.IOException;
+
 public class AnalyticsProviderImpl implements AnalyticsProvider {
 
     private  Parser parser;
+    private File database;
+    private DatabaseReader reader;
+
+    @Value("${geoip2.database.path}")
+    String databasePath;
 
     public AnalyticsProviderImpl() {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() throws IOException {
         this.parser = new Parser();
+        this.database = new File(databasePath);
+
+        try {
+           this.reader = new DatabaseReader.Builder(database).build();
+        }catch(IOException ioException){
+           throw new IOException("Error");
+        }
     }
+
     @Override
     public ClientInfo getClientInfo(String userAgent) {
         if (userAgent == null || userAgent.isBlank()) {
@@ -85,6 +102,7 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
     }
     @Override
     public GeoLocationData getGeoLocationData(String ipAddress) {
+
         return null;
     }
 }
