@@ -6,7 +6,10 @@ import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import com.secon.UrlShortener.domain.usecase.AnalyticsProvider;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import ua_parser.Client;
+import ua_parser.OS;
 import ua_parser.Parser;
+import ua_parser.UserAgent;
 
 public class AnalyticsProviderImpl implements AnalyticsProvider {
 
@@ -27,12 +30,67 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
         this.client = new WebServiceClient.Builder(accountId, licenseKey).build();
         this.parser = new Parser();
     }
-
     @Override
     public ClientInfo getClientInfo(String userAgent) {
-        return null;
+        if (userAgent == null || userAgent.isBlank()) {
+            return ClientInfo.unknown();
+        }
+
+        try {
+            Client client = parser.parse(userAgent);
+
+            String browser = client.userAgent.family;
+            String browserVersion = getBrowserVersion(client.userAgent);
+            String os = client.os.family;
+            String osVersion = getOsVersion(client.os);
+            String device = client.device.family;
+
+            return new ClientInfo(
+                    getOrDefault(browser),
+                    browserVersion,
+                    getOrDefault(os),
+                    osVersion,
+                    getOrDefault(device)
+            );
+        } catch (Exception e) {
+            return ClientInfo.unknown();
+        }
     }
 
+    private String getBrowserVersion(UserAgent ua) {
+        if (ua == null || ua.major == null) {
+            return "unknown";
+        }
+        String version = ua.major;
+        if (ua.minor != null) {
+            version += "." + ua.minor;
+        }
+        if (ua.patch != null) {
+            version += "." + ua.patch;
+        }
+        return version;
+    }
+
+    private String getOsVersion(OS os) {
+        if (os == null || os.major == null) {
+            return "unknown";
+        }
+        String version = os.major;
+        if (os.minor != null) {
+            version += "." + os.minor;
+        }
+        if (os.patch != null) {
+            version += "." + os.patch;
+        }
+        if (os.patchMinor != null) {
+            version += "." + os.patchMinor;
+        }
+        return version;
+    }
+
+    private String getOrDefault(String value) {
+        return value != null && !value.isEmpty() && !value.equals("null") ? value : "unknown";
+    }
     @Override
     public GeoLocationData getGeoLocationData(String ipAddress) {
         return null;
