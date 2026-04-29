@@ -71,4 +71,8 @@ public class ClientInfo {
                 ", device='" + device + '\'' +
                 '}';
     }
+
+    public static ClientInfo unknown() {
+        return new ClientInfo("unknown", "unknown", "unknown", "unknown", "unknown");
+    }
 }
