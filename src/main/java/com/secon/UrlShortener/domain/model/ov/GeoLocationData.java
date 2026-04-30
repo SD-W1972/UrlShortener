@@ -87,4 +87,8 @@ public class GeoLocationData {
     public int hashCode() {
         return Objects.hash(country, city, postal, latitude, longitude);
     }
+
+    public static GeoLocationData unknown() {
+        return new GeoLocationData("unknown", "unknown", "unknown", "unknown", "unknown");
+    }
 }
