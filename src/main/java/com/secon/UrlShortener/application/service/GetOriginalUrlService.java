@@ -1,19 +1,61 @@
 package com.secon.UrlShortener.application.service;
 
+import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.secon.UrlShortener.domain.model.Click;
+import com.secon.UrlShortener.domain.out.ClickRepository;
 import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
+import com.secon.UrlShortener.domain.usecase.AnalyticsProvider;
 import com.secon.UrlShortener.domain.usecase.GetOriginalUrlUseCase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+
 public class GetOriginalUrlService implements GetOriginalUrlUseCase {
+
+    private static final Logger log = LoggerFactory.getLogger(GetOriginalUrlService.class);
 
     @Autowired
     private UrlRepository urlRepository;
 
+    @Autowired
+    private AnalyticsProvider analyticsProvider;
+
+    @Autowired
+    private ClickRepository clickRepository;
+
     @Cacheable(value = "originalUrl", key = "#slug")
     @Override
-    public String originalUrl(String slug) {
-        return urlRepository.findBySlug(slug).map(Url::getOriginalUrl).orElseThrow(() -> new IllegalArgumentException("URL not found"));
+    public String originalUrl(String slug, String userAgent, String ipAddress) {
+        Url url = urlRepository.findBySlug(slug)
+                .orElseThrow(() -> new IllegalArgumentException("URL not found"));
+
+
+        return url.getSlug();
+
+    }
+
+    private void saveClick(Url url, String userAgent, String ipAddress){
+
+        Click click = null;
+        try {
+            click = new Click(
+                    url.getOriginalUrl(),
+                    url.getSlug(),
+                    LocalDateTime.now(),
+                    analyticsProvider.getClientInfo(userAgent),
+                    analyticsProvider.getGeoLocationData(ipAddress),
+                    ipAddress
+            );
+        } catch (IOException | GeoIp2Exception e) {
+            log.error("Failed to save click for slug: {}, ip: {}", url.getSlug(), ipAddress, e);
+        }
+
+        clickRepository.save(click);
+
     }
 }

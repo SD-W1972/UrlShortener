@@ -106,8 +106,10 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
         try {
             cityResponse = reader.city(InetAddress.getByName(ipAddress));
         } catch (IOException ioException) {
-            throw new IOException("Couldn't read local database");
+            throw new IOException("Invalid ipAddress or internal error");
+
         }
+
 
         return new GeoLocationData(
                 getOrDefault(cityResponse.country().isoCode()),
@@ -116,5 +118,6 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
                 getOrDefault(String.valueOf(cityResponse.location().latitude())),
                 getOrDefault(String.valueOf(cityResponse.location().longitude()))
        );
+
     }
 }
