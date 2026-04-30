@@ -1,5 +1,7 @@
 package com.secon.UrlShortener.domain.model.ov;
 
+import java.util.Objects;
+
 public class GeoLocationData {
 
     private String country;
@@ -72,5 +74,17 @@ public class GeoLocationData {
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        GeoLocationData that = (GeoLocationData) o;
+        return Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(postal, that.postal) && Objects.equals(latitude, that.latitude) && Objects.equals(longitude, that.longitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(country, city, postal, latitude, longitude);
     }
 }
