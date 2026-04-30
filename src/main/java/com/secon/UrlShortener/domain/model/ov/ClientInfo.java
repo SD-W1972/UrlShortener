@@ -1,5 +1,7 @@
 package com.secon.UrlShortener.domain.model.ov;
 
+import java.util.Objects;
+
 public class ClientInfo {
     private String browser;
     private String browserVersion;
@@ -74,5 +76,17 @@ public class ClientInfo {
 
     public static ClientInfo unknown() {
         return new ClientInfo("unknown", "unknown", "unknown", "unknown", "unknown");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ClientInfo that = (ClientInfo) o;
+        return Objects.equals(browser, that.browser) && Objects.equals(browserVersion, that.browserVersion) && Objects.equals(OS, that.OS) && Objects.equals(OSVersion, that.OSVersion) && Objects.equals(device, that.device);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(browser, browserVersion, OS, OSVersion, device);
     }
 }
