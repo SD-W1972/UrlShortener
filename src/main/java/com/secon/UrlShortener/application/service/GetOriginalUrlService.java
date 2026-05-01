@@ -34,12 +34,12 @@ public class GetOriginalUrlService implements GetOriginalUrlUseCase {
         Url url = urlRepository.findBySlug(slug)
                 .orElseThrow(() -> new IllegalArgumentException("URL not found"));
 
-
-        return url.getSlug();
+        saveClick(url, userAgent, ipAddress);
+        return url.getOriginalUrl();
 
     }
 
-    private void saveClick(Url url, String userAgent, String ipAddress){
+    public void saveClick(Url url, String userAgent, String ipAddress){
 
         Click click = null;
         try {

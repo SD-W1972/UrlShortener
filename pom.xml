@@ -119,6 +119,15 @@
 			<version>4.0.2</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- Source: https://mvnrepository.com/artifact/io.github.hakky54/logcaptor -->
+		<dependency>
+			<groupId>io.github.hakky54</groupId>
+			<artifactId>logcaptor</artifactId>
+			<version>2.12.6</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
