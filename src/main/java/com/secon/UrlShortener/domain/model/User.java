@@ -1,6 +1,6 @@
 package com.secon.UrlShortener.domain.model;
 
-import java.util.Objects;
+import java.util.List;
 import com.secon.UrlShortener.domain.model.enums.*;
 
 public class User{
@@ -9,12 +9,21 @@ public class User{
     private String email;
     private String password;
     private UserType userType;
+    private List<Url> urls;
 
-    public User(String email, String password, UserType userType){
-        this.id = null;
+    public User(String email, String password, UserType userType, List<Url> urls) {
         this.email = email;
         this.password = password;
         this.userType = userType;
+        this.urls = urls;
+    }
+
+    public List<Url> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<Url> urls) {
+        this.urls = urls;
     }
 
     public Long getId(){
@@ -44,25 +53,5 @@ public class User{
     public void setUserType(UserType userType){
         this.userType = userType;
     }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
 
-        if (this.id != null && user.id != null) {
-            return Objects.equals(this.id, user.id);
-        }
-
-        return Objects.equals(this.email, user.email);
-    }
-
-    @Override
-    public int hashCode() {
-        if (id != null) {
-            return Objects.hash(id);
-        }
-        return Objects.hash(email);
-    }
 }
