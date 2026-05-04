@@ -9,6 +9,7 @@ import com.maxmind.geoip2.record.Location;
 import com.maxmind.geoip2.record.Postal;
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
+import com.secon.UrlShortener.infrastructure.analytics.AnalyticsProviderImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

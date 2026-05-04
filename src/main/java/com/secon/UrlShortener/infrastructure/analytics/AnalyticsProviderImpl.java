@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.infrastructure.http;
+package com.secon.UrlShortener.infrastructure.analytics;
 
 import com.maxmind.db.CHMCache;
 import com.maxmind.geoip2.DatabaseReader;

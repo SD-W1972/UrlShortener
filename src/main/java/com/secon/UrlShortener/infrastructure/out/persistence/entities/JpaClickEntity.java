@@ -1,8 +1,8 @@
 package com.secon.UrlShortener.infrastructure.out.persistence.entities;
 
 import com.secon.UrlShortener.domain.model.Click;
-import com.secon.UrlShortener.infrastructure.out.persistence.ov.JpaClientInfoAdapter;
-import com.secon.UrlShortener.infrastructure.out.persistence.ov.JpaGeoLocationDataAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaClientInfoAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaGeoLocationDataAdapter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

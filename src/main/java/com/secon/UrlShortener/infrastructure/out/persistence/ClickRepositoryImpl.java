@@ -5,8 +5,9 @@ import com.secon.UrlShortener.domain.model.Click;
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaClickEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.ov.JpaClientInfoAdapter;
-import com.secon.UrlShortener.infrastructure.out.persistence.ov.JpaGeoLocationDataAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.jpa.JpaClickRepository;
+import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaClientInfoAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaGeoLocationDataAdapter;
 
 import java.util.List;
 import java.util.Optional;

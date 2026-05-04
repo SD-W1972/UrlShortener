@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.infrastructure.out.persistence;
+package com.secon.UrlShortener.infrastructure.out.persistence.jpa;
 
 import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUrlEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
