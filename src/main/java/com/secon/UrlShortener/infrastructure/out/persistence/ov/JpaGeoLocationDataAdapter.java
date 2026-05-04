@@ -1,5 +1,6 @@
 package com.secon.UrlShortener.infrastructure.out.persistence.ov;
 
+import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,11 @@ public class JpaGeoLocationDataAdapter {
     private String latitude;
     private String longitude;
 
+    public JpaGeoLocationDataAdapter(GeoLocationData geoLocationData){
+        this.country = geoLocationData.getCountry();
+        this.city = geoLocationData.getCity();
+        this.postal = geoLocationData.getPostal();
+        this.latitude = geoLocationData.getLatitude();
+        this.longitude = geoLocationData.getLongitude();
+    }
 }

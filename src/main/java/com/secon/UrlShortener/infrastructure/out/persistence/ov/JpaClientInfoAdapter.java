@@ -1,5 +1,6 @@
 package com.secon.UrlShortener.infrastructure.out.persistence.ov;
 
+import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,11 @@ public class JpaClientInfoAdapter {
     private String OSVersion;
     private String device;
 
+    public JpaClientInfoAdapter(ClientInfo clientInfo){
+        this.browser = clientInfo.getBrowser();
+        this.browserVersion = clientInfo.getBrowserVersion();
+        this.OS = clientInfo.getOS();
+        this.OSVersion = clientInfo.getOSVersion();
+        this.device = clientInfo.getDevice();
+    }
 }

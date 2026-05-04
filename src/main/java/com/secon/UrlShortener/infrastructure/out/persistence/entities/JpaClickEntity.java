@@ -32,5 +32,11 @@ public class JpaClickEntity {
 
     public JpaClickEntity(Click click){
         this.id = click.getId();
+        this.originalUrl = click.getOriginalUrl();
+        this.slug = click.getSlug();
+        this.clickedAt = click.getClickedAt();
+        this.jpaClientInfoAdapter = new JpaClientInfoAdapter(click.getClientInfo());
+        this.jpaGeoLocationDataAdapter = new JpaGeoLocationDataAdapter(click.getGeoLocationData());
+        this.ipAdress = click.getIpAdress();
     }
 }
