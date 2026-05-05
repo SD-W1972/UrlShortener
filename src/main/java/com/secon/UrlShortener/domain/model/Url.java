@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Url {
     private Long id;
@@ -112,4 +113,15 @@ public class Url {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Url url = (Url) o;
+        return isActive == url.isActive && Objects.equals(id, url.id) && Objects.equals(originalUrl, url.originalUrl) && Objects.equals(slug, url.slug) && Objects.equals(createdAt, url.createdAt) && Objects.equals(expiresAt, url.expiresAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, originalUrl, slug, createdAt, expiresAt, isActive);
+    }
 }
