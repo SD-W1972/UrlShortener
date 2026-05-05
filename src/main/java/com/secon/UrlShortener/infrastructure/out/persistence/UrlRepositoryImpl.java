@@ -1,5 +1,6 @@
 package com.secon.UrlShortener.infrastructure.out.persistence;
 
+import com.secon.UrlShortener.application.utilities.ToDomain;
 import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
 import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUrlEntity;
@@ -7,7 +8,6 @@ import com.secon.UrlShortener.infrastructure.out.persistence.jpa.JpaUrlRepositor
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class UrlRepositoryImpl implements UrlRepository {
 
@@ -19,26 +19,26 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     @Override
     public Url save(Url url) {
-        JpaUrlEntity urlEntity = this.jpaUrlRepository.save(new JpaUrlEntity(url));
-        return toDomain(urlEntity);
+        return ToDomain.toDomainUrl(jpaUrlRepository.save(new JpaUrlEntity(url)));
     }
 
     @Override
     public Optional<Url> findByOriginalUrl(String url) {
         return jpaUrlRepository.findByOriginalUrlHash(url)
-                .map(this::toDomain);
+                .map(ToDomain::toDomainUrl);
     }
 
     @Override
     public List<Url> findAll() {
-        List<JpaUrlEntity> urlEntity = this.jpaUrlRepository.findAll();
-        return urlEntity.stream().map(entity -> toDomain(entity)).collect(Collectors.toUnmodifiableList());
+        return jpaUrlRepository.findAll().stream()
+                .map(ToDomain::toDomainUrl)
+                .toList();
     }
 
     @Override
     public Optional<Url> findById(Long id) {
-        Optional<JpaUrlEntity> jpaUrlEntity = jpaUrlRepository.findById(id);
-        return jpaUrlEntity.map(this::toDomain);
+        return jpaUrlRepository.findById(id)
+                .map(ToDomain::toDomainUrl);
     }
 
     @Override
@@ -47,19 +47,8 @@ public class UrlRepositoryImpl implements UrlRepository {
     }
 
     @Override
-    public Optional<Url> findBySlug(String slug){
-        Optional<JpaUrlEntity> jpaUrlEntity = jpaUrlRepository.findBySlug(slug);
-        return jpaUrlEntity.map(this::toDomain);
-    }
-
-    public Url toDomain(JpaUrlEntity entity){
-        return new Url(
-
-                entity.getOriginalUrl(),
-                entity.getSlug(),
-                entity.getCreatedAt(),
-                entity.getExpiresAt(),
-                entity.isActive()
-        );
+    public Optional<Url> findBySlug(String slug) {
+        return jpaUrlRepository.findBySlug(slug)
+                .map(ToDomain::toDomainUrl);
     }
 }

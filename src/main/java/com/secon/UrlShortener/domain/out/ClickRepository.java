@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ClickRepository {
     Click save(Click click);
-    List<Click> findALl();
+    List<Click> findAll();
     Optional<Click> findById(Long id);
     void deleteById(Long id);
 }
