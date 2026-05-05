@@ -49,7 +49,7 @@ public class AnalyticsProviderImplTest {
         when(mockReader.city(InetAddress.getByName(ipAddress))).thenReturn(mockResponse);
 
         when(mockResponse.country()).thenReturn(mockCountry);
-        when(mockCountry.isoCode()).thenReturn("US");  // ← ESSENCIAL
+        when(mockCountry.isoCode()).thenReturn("US");
 
         when(mockResponse.city()).thenReturn(mockCity);
         when(mockCity.name()).thenReturn("Minneapolis");

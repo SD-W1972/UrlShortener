@@ -5,7 +5,6 @@ import com.secon.UrlShortener.domain.model.User;
 import com.secon.UrlShortener.domain.out.UserRepository;
 import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUserEntity;
 import com.secon.UrlShortener.infrastructure.out.persistence.jpa.JpaUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,22 +19,30 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        JpaUserEntity userEntity = jpaUserRepository.save(new JpaUserEntity(user));
-        return null;
+        return ToDomain.toDomainUser(jpaUserRepository.save(new JpaUserEntity(user)));
     }
 
     @Override
     public List<User> findAll() {
-        return List.of();
+        return jpaUserRepository.findAll().stream()
+                .map(ToDomain::toDomainUser)
+                .toList();
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        return Optional.empty();
+        return jpaUserRepository.findById(id)
+                .map(ToDomain::toDomainUser);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return jpaUserRepository.findByEmail(email)
+                .map(ToDomain::toDomainUser);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        jpaUserRepository.deleteById(id);
     }
 }
