@@ -6,6 +6,7 @@ import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Click {
@@ -117,5 +118,17 @@ public class Click {
                 ", geoLocationData=" + geoLocationData +
                 ", ipAdress='" + ipAdress + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Click click = (Click) o;
+        return Objects.equals(id, click.id) && Objects.equals(originalUrl, click.originalUrl) && Objects.equals(slug, click.slug) && Objects.equals(clickedAt, click.clickedAt) && Objects.equals(clientInfo, click.clientInfo) && Objects.equals(geoLocationData, click.geoLocationData) && Objects.equals(ipAdress, click.ipAdress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, originalUrl, slug, clickedAt, clientInfo, geoLocationData, ipAdress);
     }
 }
