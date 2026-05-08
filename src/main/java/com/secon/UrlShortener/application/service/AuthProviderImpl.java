@@ -6,6 +6,7 @@ import com.secon.UrlShortener.domain.out.UserRepository;
 import com.secon.UrlShortener.domain.usecase.AuthProvider;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -13,11 +14,14 @@ import java.util.Optional;
 
 public class AuthProviderImpl implements AuthProvider {
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public AuthProviderImpl(UserRepository userRepository) {
+        this.passwordEncoder = new BCryptPasswordEncoder();
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User register(String email, String password) {
