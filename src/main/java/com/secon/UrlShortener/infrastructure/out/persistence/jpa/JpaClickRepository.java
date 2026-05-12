@@ -14,4 +14,5 @@ public interface JpaClickRepository extends JpaRepository<JpaClickEntity, Long> 
 
     void deleteById(Long id);
 
+    List<JpaClickEntity> findAllByOriginalUrl(String originalUrl);
 }

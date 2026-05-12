@@ -10,4 +10,5 @@ public interface ClickRepository {
     List<Click> findAll();
     Optional<Click> findById(Long id);
     void deleteById(Long id);
+    List<Click> findAllByOriginalUrl(String originalUrl);
 }

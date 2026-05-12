@@ -42,4 +42,13 @@ public class ClickRepositoryImpl implements ClickRepository {
     public void deleteById(Long id) {
         jpaClickRepository.deleteById(id);
     }
+
+    @Override
+    public List<Click> findAllByOriginalUrl(String originalUrl) {
+        return jpaClickRepository.findAllByOriginalUrl(originalUrl)
+                .stream().map(ToDomain::toDomainClick)
+                .toList();
+    }
+
+
 }
