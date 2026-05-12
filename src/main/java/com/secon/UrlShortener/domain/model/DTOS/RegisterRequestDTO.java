@@ -1,4 +1,6 @@
-package com.secon.UrlShortener.domain.model;
+package com.secon.UrlShortener.domain.model.DTOS;
 
-public class RegisterRequestDTO {
-}
+public record RegisterRequestDTO(
+        String email,
+        String password
+) {}
