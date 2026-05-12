@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Optional;
 
+@RestController
 public class AuthController {
 
     private final AuthProvider authProvider;
@@ -21,14 +23,10 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterRequestDTO request){
-        try{
             authProvider.register(request.email(), request.password());
             return ResponseEntity.status(HttpStatus.OK)
                     .body(Map.of("Message", "User created succesfully"));
-        }catch(IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("Message", "Email or password invalid"));
-        }
+
     }
 
     @PostMapping("/login")

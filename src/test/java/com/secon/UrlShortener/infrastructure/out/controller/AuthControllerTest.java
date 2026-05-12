@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 
@@ -43,16 +44,16 @@ public class AuthControllerTest {
 
         RegisterRequestDTO requestDTOAlreadyExistingEmail = new RegisterRequestDTO("existing@email.com", "passwordValid");
 
-        assertEquals(HttpStatus.BAD_REQUEST, authController.register(requestDTOAlreadyExistingEmail).getStatusCode());
+        assertThrows(IllegalArgumentException.class, () ->
+                authController.register(requestDTOAlreadyExistingEmail));
     }
 
     @Test
     public void shouldThrowExceptionWhenPasswordIsInvalid(){
         when(authProvider.register("name@email.com", "1")).thenThrow(IllegalArgumentException.class);
-
         RegisterRequestDTO requestDTOInvalidPassword = new RegisterRequestDTO("name@email.com", "1");
-
-        assertEquals(HttpStatus.BAD_REQUEST, authController.register(requestDTOInvalidPassword).getStatusCode());
+        assertThrows(IllegalArgumentException.class, () ->
+               authController.register(requestDTOInvalidPassword));
     }
 
     @Test
