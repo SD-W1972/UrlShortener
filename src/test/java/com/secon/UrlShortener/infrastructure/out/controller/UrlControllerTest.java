@@ -51,7 +51,7 @@ public class UrlControllerTest {
         Base62 base62 = Base62.createInstance();
         byte[] hardcodedSlug = base62.encode(buffer.array());
 
-        expectedSlug = expectedSlug;
+        expectedSlug = new String(hardcodedSlug);
     }
 
     @Test
@@ -101,5 +101,4 @@ public class UrlControllerTest {
         assertThrows(IllegalArgumentException.class, () ->
                 getOriginalUrl.originalUrl(expectedSlug, userAgent, "INVALID IP ADDRESS"));
     }
-
 }
