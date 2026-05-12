@@ -8,10 +8,12 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+@Service
 public class AuthProviderImpl implements AuthProvider {
 
     private final PasswordEncoder passwordEncoder;
@@ -27,6 +29,10 @@ public class AuthProviderImpl implements AuthProvider {
     public User register(String email, String password) {
         if(userRepository.findByEmail(email).isPresent()){
             throw new IllegalArgumentException("An account with this email already exists!");
+        }
+
+        if(password.length() < 8){
+            throw new IllegalArgumentException("Password must have at least 8 characters");
         }
 
         String encodedPassword = passwordEncoder.encode(password);
