@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.infrastructure.out.persistence.entities;
+package com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa;
 
 import com.secon.UrlShortener.domain.model.User;
 import com.secon.UrlShortener.domain.model.enums.UserType;

@@ -7,15 +7,14 @@ import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import com.secon.UrlShortener.domain.model.enums.*;
 
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaClickEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUrlEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUserEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaClientInfoAdapter;
-import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaGeoLocationDataAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaClickEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaUrlEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaUserEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.ov.JpaClientInfoAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.ov.JpaGeoLocationDataAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ua_parser.Client;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

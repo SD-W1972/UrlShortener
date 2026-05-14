@@ -1,10 +1,10 @@
-package com.secon.UrlShortener.infrastructure.out.persistence;
+package com.secon.UrlShortener.infrastructure.out.persistence.repository;
 
 import com.secon.UrlShortener.application.utilities.ToDomain;
 import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUrlEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.jpa.JpaUrlRepository;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaUrlEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.JpaUrlRepository;
 
 import java.util.List;
 import java.util.Optional;

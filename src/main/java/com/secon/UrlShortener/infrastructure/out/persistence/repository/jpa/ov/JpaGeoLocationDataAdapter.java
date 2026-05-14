@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov;
+package com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.ov;
 
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import jakarta.persistence.Embeddable;

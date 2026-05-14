@@ -5,11 +5,11 @@ import com.secon.UrlShortener.domain.model.Url;
 import com.secon.UrlShortener.domain.model.User;
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaClickEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUrlEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaUserEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaClientInfoAdapter;
-import com.secon.UrlShortener.infrastructure.out.persistence.jpa.ov.JpaGeoLocationDataAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaClickEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaUrlEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaUserEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.ov.JpaClientInfoAdapter;
+import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.ov.JpaGeoLocationDataAdapter;
 
 import java.util.stream.Collectors;
 

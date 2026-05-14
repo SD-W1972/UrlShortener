@@ -1,4 +1,4 @@
-package com.secon.UrlShortener.infrastructure.out.persistence.entities;
+package com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa;
 
 import com.secon.UrlShortener.domain.model.Url;
 import jakarta.persistence.*;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "URL")

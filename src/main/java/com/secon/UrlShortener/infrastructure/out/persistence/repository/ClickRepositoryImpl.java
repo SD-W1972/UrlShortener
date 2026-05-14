@@ -1,10 +1,10 @@
-package com.secon.UrlShortener.infrastructure.out.persistence;
+package com.secon.UrlShortener.infrastructure.out.persistence.repository;
 
 import com.secon.UrlShortener.application.utilities.ToDomain;
 import com.secon.UrlShortener.domain.out.ClickRepository;
 import com.secon.UrlShortener.domain.model.Click;
-import com.secon.UrlShortener.infrastructure.out.persistence.entities.JpaClickEntity;
-import com.secon.UrlShortener.infrastructure.out.persistence.jpa.JpaClickRepository;
+import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaClickEntity;
+import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.JpaClickRepository;
 
 import java.util.List;
 import java.util.Optional;
