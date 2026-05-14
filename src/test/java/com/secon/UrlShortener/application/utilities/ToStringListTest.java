@@ -26,7 +26,7 @@ public class ToStringListTest {
         String slug = "abc123";
         LocalDateTime clickedAt = LocalDateTime.now();
         GeoLocationData geoLocationData = new GeoLocationData(
-                "Brazil",
+             "Brazil",
                 "Sao Paulo",
                 "2222222",
                 "lattitude",
