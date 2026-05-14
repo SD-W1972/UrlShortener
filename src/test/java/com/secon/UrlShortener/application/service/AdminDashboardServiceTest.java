@@ -31,6 +31,7 @@ public class AdminDashboardServiceTest {
 
     private List<Click> expectedClicks = new ArrayList<>();
     private Click defaultClick;
+    private Click clickDifferentUrl;
 
     @BeforeEach
     public void setup(){
@@ -60,6 +61,15 @@ public class AdminDashboardServiceTest {
                 geoLocationData,
                 "111.111.111");
 
+        clickDifferentUrl = new Click(
+                "https://youtube.com",
+                slug,
+                clickedAt,
+                clientInfo,
+                geoLocationData,
+                "111.111.111");
+
+
         expectedClicks.add(defaultClick);
         expectedClicks.add(defaultClick);
         expectedClicks.add(defaultClick);
@@ -73,5 +83,17 @@ public class AdminDashboardServiceTest {
         List<Click> returnedClicks = adminDashboardService.getAllData();
         assertNotNull(returnedClicks);
         assertEquals(expectedClicks, returnedClicks);
+    }
+
+    @Test
+    public void shouldReturnOnlyClicksWithTheSameOriginalUrl(){
+        List<Click> clicksWithDifferenteUrl = List.of(clickDifferentUrl);
+
+        when(clickRepository.findAllByOriginalUrl("https://youtube.com")).thenReturn(clicksWithDifferenteUrl);
+
+        List<Click> returnedClicks = adminDashboardService.getDataByOriginalUrl("https://youtube.com");
+
+        assertNotNull(returnedClicks);
+        assertEquals(clicksWithDifferenteUrl, returnedClicks);
     }
 }
