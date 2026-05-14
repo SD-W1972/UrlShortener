@@ -16,7 +16,7 @@ public class AdminDashboardService implements AdminDashboardUseCase {
 
     @Override
     public List<Click> getDataByOriginalUrl(String originalUrl) {
-        return List.of();
+        return clickRepository.findAllByOriginalUrl(originalUrl);
     }
 
     @Override
