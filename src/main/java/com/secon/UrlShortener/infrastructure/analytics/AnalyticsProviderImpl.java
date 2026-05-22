@@ -4,11 +4,12 @@ import com.maxmind.db.CHMCache;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CityResponse;
-import com.maxmind.geoip2.record.Country;
 import com.secon.UrlShortener.domain.model.ov.ClientInfo;
 import com.secon.UrlShortener.domain.model.ov.GeoLocationData;
 import com.secon.UrlShortener.domain.usecase.AnalyticsProvider;
-import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ua_parser.Client;
@@ -19,17 +20,36 @@ import ua_parser.UserAgent;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 @Component
 public class AnalyticsProviderImpl implements AnalyticsProvider {
+
+    private static final Logger log = LoggerFactory.getLogger(AnalyticsProviderImpl.class);
+
     private final Parser parser;
     private final DatabaseReader reader;
 
-    public AnalyticsProviderImpl(@Value("${geoip2.database.path}") String databasePath) throws IOException {
+    @Autowired
+    public AnalyticsProviderImpl(@Value("${geoip2.database.path:}") String databasePath) {
         this.parser = new Parser();
-        File database = new File(databasePath);
-        this.reader = new DatabaseReader.Builder(database).withCache(new CHMCache()).build();
+
+        DatabaseReader tempReader = null;
+        try {
+            if (databasePath != null && !databasePath.isEmpty()) {
+                File database = new File(databasePath);
+                if (database.exists()) {
+                    tempReader = new DatabaseReader.Builder(database).withCache(new CHMCache()).build();
+                    log.info("GeoIP2 database loaded from: {}", databasePath);
+                } else {
+                    log.warn("GeoIP2 database not found at: {}", databasePath);
+                }
+            } else {
+                log.warn("GeoIP2 database path not configured");
+            }
+        } catch (IOException e) {
+            log.error("Failed to load GeoIP2 database: {}", e.getMessage());
+        }
+        this.reader = tempReader;
     }
 
     public AnalyticsProviderImpl(Parser parser, DatabaseReader reader) {
@@ -60,6 +80,7 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
                     getOrDefault(device)
             );
         } catch (Exception e) {
+            log.error("Failed to parse user agent: {}", userAgent, e);
             return ClientInfo.unknown();
         }
     }
@@ -101,23 +122,23 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
 
     @Override
     public GeoLocationData getGeoLocationData(String ipAddress) throws IOException, GeoIp2Exception {
-        CityResponse cityResponse;
-
-        try {
-            cityResponse = reader.city(InetAddress.getByName(ipAddress));
-        } catch (IOException ioException) {
-            throw new IOException("Invalid ipAddress or internal error");
-
+        if (reader == null) {
+            log.warn("GeoIP2 database not available, returning unknown location for IP: {}", ipAddress);
+            return GeoLocationData.unknown();
         }
 
-
-        return new GeoLocationData(
-                getOrDefault(cityResponse.country().isoCode()),
-                getOrDefault(cityResponse.city().name()),
-                getOrDefault(cityResponse.postal().code()),
-                getOrDefault(String.valueOf(cityResponse.location().latitude())),
-                getOrDefault(String.valueOf(cityResponse.location().longitude()))
-       );
-
+        try {
+            CityResponse cityResponse = reader.city(InetAddress.getByName(ipAddress));
+            return new GeoLocationData(
+                    getOrDefault(cityResponse.country().isoCode()),
+                    getOrDefault(cityResponse.city().name()),
+                    getOrDefault(cityResponse.postal().code()),
+                    getOrDefault(String.valueOf(cityResponse.location().latitude())),
+                    getOrDefault(String.valueOf(cityResponse.location().longitude()))
+            );
+        } catch (IOException e) {
+            log.error("Failed to get location for IP: {}", ipAddress, e);
+            throw new IOException("Invalid ipAddress or internal error");
+        }
     }
 }

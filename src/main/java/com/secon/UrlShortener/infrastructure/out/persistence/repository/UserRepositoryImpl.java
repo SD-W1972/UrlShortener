@@ -5,10 +5,12 @@ import com.secon.UrlShortener.domain.model.User;
 import com.secon.UrlShortener.domain.out.UserRepository;
 import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaUserEntity;
 import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.JpaUserRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final JpaUserRepository jpaUserRepository;

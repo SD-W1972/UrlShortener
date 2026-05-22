@@ -9,15 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JpaUrlRepository extends JpaRepository<JpaUrlEntity, Long> {
-    @Override
-    Optional<JpaUrlEntity> findById(Long id);
 
     Optional<JpaUrlEntity> findBySlug(String slug);
 
-    Optional<List<JpaUrlEntity>> findALl();
-
-    @Query("SELECT u FROM JpaUrlEntity u WHERE u.originalUrlHash = :hash")
-    Optional<JpaUrlEntity> findByOriginalUrlHash(@Param("hash") String hash);
+    Optional<JpaUrlEntity> findByOriginalUrl(String originalUrl);
 
     boolean existsBySlug(String slug);
 

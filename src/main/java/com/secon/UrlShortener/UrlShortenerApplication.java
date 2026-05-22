@@ -8,8 +8,6 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @SpringBootApplication
 @EnableCaching
-@EnableJpaRepositories(basePackages = "com.secon.UrlShortener.infrastructure.out.persistence.jpa")
-@EnableRedisRepositories(basePackages = "com.secon.UrlShortener.infrastructure.out.persistence.redis")
 public class UrlShortenerApplication {
 
 	public static void main(String[] args) {

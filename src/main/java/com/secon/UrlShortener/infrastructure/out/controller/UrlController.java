@@ -23,7 +23,7 @@ public class UrlController {
         return ResponseEntity.status(201).body(shortenUrl.encodeToSlug(originalUrl));
     }
 
-    @GetMapping("{/slug}")
+    @GetMapping("/{slug}")
     public ResponseEntity<String> getOriginalUrl(@PathVariable String slug, HttpServletRequest request){
         String userAgent = request.getHeader("User-Agent");
         String ipAddress = request.getRemoteAddr();

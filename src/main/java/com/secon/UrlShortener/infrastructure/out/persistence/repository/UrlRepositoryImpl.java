@@ -5,10 +5,12 @@ import com.secon.UrlShortener.domain.out.UrlRepository;
 import com.secon.UrlShortener.domain.model.Url;
 import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaUrlEntity;
 import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.JpaUrlRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class UrlRepositoryImpl implements UrlRepository {
 
     private final JpaUrlRepository jpaUrlRepository;
@@ -24,7 +26,7 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     @Override
     public Optional<Url> findByOriginalUrl(String url) {
-        return jpaUrlRepository.findByOriginalUrlHash(url)
+        return jpaUrlRepository.findByOriginalUrl(url)
                 .map(ToDomain::toDomainUrl);
     }
 

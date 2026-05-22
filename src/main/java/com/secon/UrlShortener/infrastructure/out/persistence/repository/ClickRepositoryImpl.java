@@ -5,11 +5,13 @@ import com.secon.UrlShortener.domain.out.ClickRepository;
 import com.secon.UrlShortener.domain.model.Click;
 import com.secon.UrlShortener.infrastructure.out.persistence.entity.jpa.JpaClickEntity;
 import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.JpaClickRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Repository
 public class ClickRepositoryImpl implements ClickRepository {
 
     private final JpaClickRepository jpaClickRepository;

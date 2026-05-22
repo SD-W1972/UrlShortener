@@ -27,6 +27,9 @@ public class JpaUrlEntity {
     private LocalDateTime expiresAt;
     private boolean isActive;
 
+    @ManyToOne
+    private JpaUserEntity user;
+
     public JpaUrlEntity(Url url){
         this.originalUrl = url.getOriginalUrl();
         this.slug = url.getSlug();
