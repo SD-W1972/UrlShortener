@@ -18,12 +18,10 @@ import java.util.Optional;
 public class AuthProviderImpl implements AuthProvider {
 
     private final PasswordEncoder passwordEncoder;
-
     private final UserRepository userRepository;
 
-
-    public AuthProviderImpl(UserRepository userRepository) {
-        this.passwordEncoder = new BCryptPasswordEncoder();
+    public AuthProviderImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
 

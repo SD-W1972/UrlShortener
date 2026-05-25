@@ -29,6 +29,7 @@ public class JpaUserEntity {
     private String password;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(columnDefinition = "INTEGER")
     private UserType userType;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
