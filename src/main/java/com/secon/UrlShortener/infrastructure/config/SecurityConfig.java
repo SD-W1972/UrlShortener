@@ -22,8 +22,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+
         http
-                .authenticationProvider(authenticationProvider())
+                .authenticationProvider(provider)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/home", "/login", "/register").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -32,14 +37,6 @@ public class SecurityConfig {
                 .formLogin(form -> form.permitAll());
 
         return http.build();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
     }
 
     @Bean
