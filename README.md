@@ -97,6 +97,10 @@ The project follows TDD principles and uses JUnit 5 for unit and integration tes
 The application exposes metrics for Prometheus and health checks:
 - **Health**: `http://localhost:8080/actuator/health`
 - **Prometheus**: `http://localhost:8080/actuator/prometheus`
-- **H2 Console**: `http://localhost:8080/admin/h2-console` (Access at `/admin/h2-console`)
+- **H2 Console**: `http://localhost:8080/admin/h2-console` (Access at `/db/h2-console`)
 
+## TO DO
+- **Logout**
+- **API endpoint /mySlugs**
+  
 ---
