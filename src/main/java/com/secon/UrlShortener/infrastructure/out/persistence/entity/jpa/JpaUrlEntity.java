@@ -37,6 +37,9 @@ public class JpaUrlEntity {
         this.createdAt = url.getCreatedAt();
         this.expiresAt = url.getExpiresAt();
         this.isActive = url.isActive();
+        if (url.getUser() != null) {
+            this.user = new JpaUserEntity(url.getUser());
+        }
     }
 
 }
