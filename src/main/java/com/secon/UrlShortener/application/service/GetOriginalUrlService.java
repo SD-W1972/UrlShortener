@@ -38,16 +38,21 @@ public class GetOriginalUrlService implements GetOriginalUrlUseCase {
     @Autowired
     private ClickRepository clickRepository;
 
-    @CachePut(value = "originalUrl", key = "#slug")
-    @Override
-    public String originalUrl(String slug, String userAgent, String ipAddress) {
-        Url url = urlRepository.findBySlug(slug)
-                .orElseThrow(() -> new IllegalArgumentException("URL not found"));
+    @Cacheable(value = "originalUrl", key = "#slug", unless = "#result == null")
+    public String getCachedOriginalUrl(String slug) {
+        return urlRepository.findBySlug(slug)
+                .orElseThrow(() -> new IllegalArgumentException("URL not found"))
+                .getOriginalUrl();
+    }
 
+    @CachePut(value = "originalUrl", key = "#slug")
+    public String originalUrl(String slug, String userAgent, String ipAddress) {
+        String originalUrl = getCachedOriginalUrl(slug);
+
+        Url url = urlRepository.findBySlug(slug).get();
         saveClick(url, userAgent, ipAddress);
 
-        return url.getOriginalUrl();
-
+        return originalUrl;
     }
 
     public void saveClick(Url url, String userAgent, String ipAddress){
