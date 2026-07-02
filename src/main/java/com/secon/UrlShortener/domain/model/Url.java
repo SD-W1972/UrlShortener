@@ -13,6 +13,7 @@ public class Url {
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
     private boolean isActive;
+    private User user;
 
     public Url(String originalUrl, String slug, LocalDateTime createdAt, LocalDateTime expiresAt, boolean isActive){
         this.id = null;
@@ -31,10 +32,18 @@ public class Url {
     public Url(String originalUrl){
         this.originalUrl = originalUrl;
         this.createdAt = LocalDateTime.now();
-        this.createdAt = LocalDateTime.now().plusDays(30);
+        this.expiresAt = LocalDateTime.now().plusDays(30);
         this.id = null;
         this.slug = null;
         this.isActive = true;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
