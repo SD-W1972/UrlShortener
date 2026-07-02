@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,23 +19,24 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension .class)
+@ExtendWith(MockitoExtension.class)
 public class AuthProviderImplTest {
 
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
     private AuthProviderImpl authProvider;
 
-    private PasswordEncoder passwordEncoder;
     private User user;
+    private String rawPassword = "Senha#123";
+    private String encodedPassword = "$2a$10$abc123def456ghi789jkl";
 
     @BeforeEach
-    public void setup(){
-        passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode("Senha#123");
-
+    public void setup() {
         user = new User(
                 "user@email.com",
                 encodedPassword,
@@ -46,36 +46,34 @@ public class AuthProviderImplTest {
     }
 
     @Test
-    public void shouldRegisterUser(){
-        Mockito.<Optional<User>>when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.empty());
+    public void shouldRegisterUser() {
+        when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.empty());
+        when(passwordEncoder.encode(rawPassword)).thenReturn(encodedPassword);
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
-                    User u = invocation.getArgument(0);
-                    return u;
-                });
+        User registeredUser = authProvider.register("user@email.com", rawPassword);
 
-        User hardcodedUser = authProvider.register("user@email.com", "Senha#123");
-
-        assertNotNull(hardcodedUser);
-        assertEquals(user.getEmail(), hardcodedUser.getEmail());
-        assertEquals(UserType.CLIENT, hardcodedUser.getUserType());
-        assertTrue(passwordEncoder.matches("Senha#123", hardcodedUser.getPassword()));
+        assertNotNull(registeredUser);
+        assertEquals("user@email.com", registeredUser.getEmail());
+        assertEquals(UserType.CLIENT, registeredUser.getUserType());
+        assertEquals(encodedPassword, registeredUser.getPassword());
     }
 
     @Test
-    public void shouldLoginUser(){
-        Mockito.<Optional<User>>when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
+    public void shouldLoginUser() {
+        when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(rawPassword, user.getPassword())).thenReturn(true);
 
-        Optional<User> hardcodedUser = authProvider.login("user@email.com", "Senha#123");
+        Optional<User> result = authProvider.login("user@email.com", rawPassword);
 
-        assertTrue(hardcodedUser.isPresent());
-        assertEquals(user.getEmail(), hardcodedUser.get().getEmail());
-        assertEquals(UserType.CLIENT, hardcodedUser.get().getUserType());
+        assertTrue(result.isPresent());
+        assertEquals(user.getEmail(), result.get().getEmail());
+        assertEquals(UserType.CLIENT, result.get().getUserType());
     }
 
     @Test
-    public void shouldNotLoginBecauseEmailDoesntExist(){
-        Mockito.<Optional<User>>when(userRepository.findByEmail("nonexisting@email.com")).thenReturn(Optional.empty());
+    public void shouldNotLoginBecauseEmailDoesntExist() {
+        when(userRepository.findByEmail("nonexisting@email.com")).thenReturn(Optional.empty());
 
         Optional<User> result = authProvider.login("nonexisting@email.com", "Senha#123#");
 
@@ -83,17 +81,19 @@ public class AuthProviderImplTest {
     }
 
     @Test
-    public void shouldNotLoginBecausePasswordDoesNotMatch(){
-        Mockito.<Optional<User>>when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
+    public void shouldNotLoginBecausePasswordDoesNotMatch() {
+        when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches("WrongPassword", user.getPassword())).thenReturn(false);
 
-        Optional<User> hardcodedUser = authProvider.login("user@email.com", "WrongPassword");
+        Optional<User> result = authProvider.login("user@email.com", "WrongPassword");
 
-        assertFalse(hardcodedUser.isPresent());
+        assertFalse(result.isPresent());
     }
 
     @Test
-    public void shouldThrowExceptionWhenAccountAlreadyExistsOnRegister(){
-        Mockito.<Optional<User>>when(userRepository.findByEmail("existing@email.com")).thenReturn(Optional.of(user));
+    public void shouldThrowExceptionWhenAccountAlreadyExistsOnRegister() {
+        when(userRepository.findByEmail("existing@email.com")).thenReturn(Optional.of(user));
+
         assertThrows(IllegalArgumentException.class, () ->
                 authProvider.register("existing@email.com", "Senha#123#"));
     }
