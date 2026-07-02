@@ -35,7 +35,11 @@ public class ShortenUrlService implements ShortenUrlUseCase {
 
             Base62 base62 = Base62.createInstance();
             byte[] slugBytes = base62.encode(longToBytes(savedUrl.getId()));
-            String slug = new String(slugBytes);
+            String slug = new String(slugBytes).trim();
+            
+            if (slug == null || slug.isEmpty()) {
+                throw new RuntimeException("Failed to generate slug");
+            }
 
             savedUrl.setSlug(slug);
             repository.save(savedUrl);
@@ -43,7 +47,8 @@ public class ShortenUrlService implements ShortenUrlUseCase {
 
             return slug;
         } else {
-            return alreadyExistingUrl.get().getSlug();
+            Url existing = alreadyExistingUrl.get();
+            return existing.getSlug() != null ? existing.getSlug() : "";
         }
     }
 
