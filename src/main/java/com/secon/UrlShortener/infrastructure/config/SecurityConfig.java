@@ -28,13 +28,15 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
 
         http
+                .csrf(csrf -> csrf.disable())
                 .authenticationProvider(provider)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home", "/login", "/register").permitAll()
+                        .requestMatchers("/", "/register", "/login", "/shorten", "/{slug}", "/h2-console/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form.permitAll());
+                .formLogin(form -> form.disable())
+                .httpBasic(httpBasic -> {});
 
         return http.build();
     }
