@@ -12,6 +12,7 @@ import com.secon.UrlShortener.domain.usecase.GetOriginalUrlUseCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,7 +38,7 @@ public class GetOriginalUrlService implements GetOriginalUrlUseCase {
     @Autowired
     private ClickRepository clickRepository;
 
-    @Cacheable(value = "originalUrl", key = "#slug")
+    @CachePut(value = "originalUrl", key = "#slug")
     @Override
     public String originalUrl(String slug, String userAgent, String ipAddress) {
         Url url = urlRepository.findBySlug(slug)
@@ -50,7 +51,6 @@ public class GetOriginalUrlService implements GetOriginalUrlUseCase {
     }
 
     public void saveClick(Url url, String userAgent, String ipAddress){
-
         Click click = null;
         try {
             click = new Click(
@@ -61,16 +61,20 @@ public class GetOriginalUrlService implements GetOriginalUrlUseCase {
                     analyticsProvider.getGeoLocationData(ipAddress),
                     ipAddress
             );
-        } catch (IOException | GeoIp2Exception e) {
-            log.error("Failed to save click for slug: {}, ip: {}", url.getSlug(), ipAddress, e);
+        } catch (Exception e) {
+            click = new Click(
+                    url.getOriginalUrl(),
+                    url.getSlug(),
+                    LocalDateTime.now(),
+                    null,
+                    null,
+                    ipAddress
+            );
         }
 
         if (click != null) {
-            clickRepository.save(click);
+            Click saved = clickRepository.save(click);
+
         }
-
     }
-
-
-
 }

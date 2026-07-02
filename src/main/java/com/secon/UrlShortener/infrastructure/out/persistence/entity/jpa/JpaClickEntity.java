@@ -26,17 +26,21 @@ public class JpaClickEntity {
     private String originalUrl;
     private String slug;
     private LocalDateTime clickedAt;
-    private JpaClientInfoAdapter jpaClientInfoAdapter;
-    private JpaGeoLocationDataAdapter jpaGeoLocationDataAdapter;
     private String ipAdress;
 
-    public JpaClickEntity(Click click){
+    @Embedded
+    private JpaClientInfoAdapter jpaClientInfoAdapter;
+
+    @Embedded
+    private JpaGeoLocationDataAdapter jpaGeoLocationDataAdapter;
+
+    public JpaClickEntity(Click click) {
         this.id = click.getId();
         this.originalUrl = click.getOriginalUrl();
         this.slug = click.getSlug();
         this.clickedAt = click.getClickedAt();
-        this.jpaClientInfoAdapter = new JpaClientInfoAdapter(click.getClientInfo());
-        this.jpaGeoLocationDataAdapter = new JpaGeoLocationDataAdapter(click.getGeoLocationData());
         this.ipAdress = click.getIpAdress();
+        this.jpaClientInfoAdapter = click.getClientInfo() == null ? null : new JpaClientInfoAdapter(click.getClientInfo());
+        this.jpaGeoLocationDataAdapter = click.getGeoLocationData() == null ? null : new JpaGeoLocationDataAdapter(click.getGeoLocationData());
     }
 }

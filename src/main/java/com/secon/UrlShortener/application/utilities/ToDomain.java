@@ -14,7 +14,9 @@ import com.secon.UrlShortener.infrastructure.out.persistence.repository.jpa.ov.J
 import java.util.stream.Collectors;
 
 public class ToDomain {
-    public static Url toDomainUrl(JpaUrlEntity entity){
+
+    public static Url toDomainUrl(JpaUrlEntity entity) {
+        if (entity == null) return null;
         Url url = new Url(
                 entity.getOriginalUrl(),
                 entity.getSlug(),
@@ -26,7 +28,8 @@ public class ToDomain {
         return url;
     }
 
-    public static Click toDomainClick(JpaClickEntity entity){
+    public static Click toDomainClick(JpaClickEntity entity) {
+        if (entity == null) return null;
         return new Click(
                 entity.getOriginalUrl(),
                 entity.getSlug(),
@@ -37,18 +40,22 @@ public class ToDomain {
         );
     }
 
-    public static User toDomainUser(JpaUserEntity entity){
+    public static User toDomainUser(JpaUserEntity entity) {
+        if (entity == null) return null;
         return new User(
                 entity.getEmail(),
                 entity.getPassword(),
                 entity.getUserType(),
                 entity.getUrls().stream()
-                        .map(url -> toDomainUrl(url))
+                        .map(ToDomain::toDomainUrl)
                         .collect(Collectors.toUnmodifiableList())
         );
     }
 
-    public static ClientInfo toObjectValueClientInfo(JpaClientInfoAdapter jcia){
+    public static ClientInfo toObjectValueClientInfo(JpaClientInfoAdapter jcia) {
+        if (jcia == null) {
+            return ClientInfo.unknown();
+        }
         return new ClientInfo(
                 jcia.getBrowser(),
                 jcia.getBrowserVersion(),
@@ -58,7 +65,10 @@ public class ToDomain {
         );
     }
 
-    public static GeoLocationData toObjectValueGeoLocationData(JpaGeoLocationDataAdapter jglda){
+    public static GeoLocationData toObjectValueGeoLocationData(JpaGeoLocationDataAdapter jglda) {
+        if (jglda == null) {
+            return GeoLocationData.unknown();
+        }
         return new GeoLocationData(
                 jglda.getCountry(),
                 jglda.getCity(),
