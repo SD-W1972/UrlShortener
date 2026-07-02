@@ -65,7 +65,9 @@ public class GetOriginalUrlService implements GetOriginalUrlUseCase {
             log.error("Failed to save click for slug: {}, ip: {}", url.getSlug(), ipAddress, e);
         }
 
-        clickRepository.save(click);
+        if (click != null) {
+            clickRepository.save(click);
+        }
 
     }
 
