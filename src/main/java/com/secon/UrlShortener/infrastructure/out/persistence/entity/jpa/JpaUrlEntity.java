@@ -22,6 +22,7 @@ public class JpaUrlEntity {
     private Long id;
 
     private String originalUrl;
+    @Column(nullable = true)
     private String slug;
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
