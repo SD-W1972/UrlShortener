@@ -17,7 +17,7 @@ public class Url {
     public Url(String originalUrl, String slug, LocalDateTime createdAt, LocalDateTime expiresAt, boolean isActive){
         this.id = null;
         try {
-            validate(originalUrl, slug);
+            validateUrl(originalUrl);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -96,8 +96,22 @@ public class Url {
             throw new IllegalArgumentException("URL invalid: must use http or https");
         }
 
-        if (slug == null) {
-            throw new IllegalArgumentException("Slug is null");
+        if (slug != null && slug.isEmpty()) {
+            throw new IllegalArgumentException("Slug cannot be empty");
+        }
+    }
+
+    private void validateUrl(String originalUrl) throws URISyntaxException {
+        if (originalUrl == null) {
+            throw new IllegalArgumentException("URL is null");
+        }
+
+        URI uri = new URI(originalUrl);
+        String scheme = uri.getScheme();
+
+        if (scheme == null ||
+                (!scheme.equalsIgnoreCase("http") && !scheme.equalsIgnoreCase("https"))) {
+            throw new IllegalArgumentException("URL invalid: must use http or https");
         }
     }
 

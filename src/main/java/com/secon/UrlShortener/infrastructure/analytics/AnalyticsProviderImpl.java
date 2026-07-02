@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ua_parser.Client;
 import ua_parser.OS;
@@ -30,21 +31,18 @@ public class AnalyticsProviderImpl implements AnalyticsProvider {
     private final DatabaseReader reader;
 
     @Autowired
-    public AnalyticsProviderImpl(@Value("${geoip2.database.path:}") String databasePath) {
+    public AnalyticsProviderImpl(@Value("classpath:GeoLite2-City.mmdb") Resource databaseFile) {
         this.parser = new Parser();
 
         DatabaseReader tempReader = null;
         try {
-            if (databasePath != null && !databasePath.isEmpty()) {
-                File database = new File(databasePath);
-                if (database.exists()) {
-                    tempReader = new DatabaseReader.Builder(database).withCache(new CHMCache()).build();
-                    log.info("GeoIP2 database loaded from: {}", databasePath);
-                } else {
-                    log.warn("GeoIP2 database not found at: {}", databasePath);
-                }
+            if (databaseFile.exists()) {
+                tempReader = new DatabaseReader.Builder(databaseFile.getFile())
+                        .withCache(new CHMCache())
+                        .build();
+                log.info("GeoIP2 database loaded");
             } else {
-                log.warn("GeoIP2 database path not configured");
+                log.warn("GeoIP2 database not found");
             }
         } catch (IOException e) {
             log.error("Failed to load GeoIP2 database: {}", e.getMessage());

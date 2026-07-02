@@ -18,7 +18,7 @@ public class UrlController {
         this.getOriginalUrl = getOriginalUrl;
     }
 
-    @PostMapping("/slug")
+    @PostMapping("/shorten")
     public ResponseEntity<String> getSlug(@RequestBody String originalUrl){
         return ResponseEntity.status(201).body(shortenUrl.encodeToSlug(originalUrl));
     }

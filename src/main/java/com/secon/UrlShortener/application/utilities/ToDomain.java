@@ -15,14 +15,15 @@ import java.util.stream.Collectors;
 
 public class ToDomain {
     public static Url toDomainUrl(JpaUrlEntity entity){
-        return new Url(
-
+        Url url = new Url(
                 entity.getOriginalUrl(),
                 entity.getSlug(),
                 entity.getCreatedAt(),
                 entity.getExpiresAt(),
                 entity.isActive()
         );
+        url.setId(entity.getId());
+        return url;
     }
 
     public static Click toDomainClick(JpaClickEntity entity){
