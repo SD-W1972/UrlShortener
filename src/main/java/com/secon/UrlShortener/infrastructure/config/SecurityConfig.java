@@ -35,12 +35,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authenticationProvider(authenticationProvider)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/register", "/login", "/shorten", "/{slug}", "/h2-console/**", "/actuator/**").permitAll()
+                        .requestMatchers("/", "/register", "/login", "/shorten", "/{slug}", "/actuator/**", "/db/**", "/error").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
-                .httpBasic(httpBasic -> {});
+                .httpBasic(httpBasic -> {})
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin())
+                );
 
         return http.build();
     }

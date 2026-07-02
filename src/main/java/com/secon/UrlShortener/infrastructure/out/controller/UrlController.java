@@ -25,6 +25,7 @@ public class UrlController {
 
     @GetMapping("/{slug}")
     public ResponseEntity<String> getOriginalUrl(@PathVariable String slug, HttpServletRequest request){
+
         String userAgent = request.getHeader("User-Agent");
         String ipAddress = request.getRemoteAddr();
 
